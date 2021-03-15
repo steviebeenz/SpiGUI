@@ -10,10 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -42,7 +39,7 @@ public class SGMenu implements InventoryHolder {
     private int rowsPerPage;
 
     private final Map<Integer, SGButton> items;
-    private final List<Integer> stickiedSlots;
+    private final HashSet<Integer> stickiedSlots;
 
     private int currentPage;
     private Boolean blockDefaultInteractions;
@@ -70,7 +67,7 @@ public class SGMenu implements InventoryHolder {
         this.tag = tag;
 
         this.items = new HashMap<>();
-        this.stickiedSlots = new ArrayList<>();
+        this.stickiedSlots = new HashSet<>();
 
         this.currentPage = 0;
     }
@@ -407,7 +404,7 @@ public class SGMenu implements InventoryHolder {
      * @return The highest page number that can be viewed.
      */
     public int getMaxPage() {
-        return (int) Math.ceil((double) getHighestFilledSlot() / ((double) getPageSize() - 1));
+        return (int) Math.ceil(((double) getHighestFilledSlot() + 1) / ((double) getPageSize()));
     }
 
     /**
